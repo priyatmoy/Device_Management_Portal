@@ -1,0 +1,32 @@
+import { Component, OnInit  } from '@angular/core';
+import { GitService } from './gitProfile.service';
+
+@Component({
+  selector: 'hello',
+  templateUrl: './hello.component.html',
+  styleUrls: ['./hello.component.css']
+})
+export class HelloComponent implements OnInit {
+  profile;
+  username;
+  repos;
+  constructor(private service : GitService){}
+  ngOnInit(){
+    
+  }
+
+    getData(input: HTMLInputElement) {
+    console.log('ok');
+    this.username = input.value;
+    this.service.getProfileInfo(this.username).subscribe(profile => {
+      console.log(profile);
+      this.profile = profile;
+    });
+    this.service.getProfileRepos(this.username).subscribe(repos => {
+      console.log(repos);
+      this.repos = repos;
+    });
+  }
+
+
+}
